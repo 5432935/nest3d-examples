@@ -3,7 +3,7 @@ package
 	import flash.display3D.Context3DProgramType;
 	
 	import nest.control.controller.MouseController;
-	import nest.control.controller.MouseEvent3D;
+	import nest.control.event.MouseEvent3D;
 	import nest.control.partition.OcNode;
 	import nest.control.partition.OcTree;
 	import nest.control.util.Primitives;

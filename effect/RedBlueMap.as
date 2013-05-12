@@ -60,7 +60,7 @@ package effect
 			p.scaleBy(eyePadding);
 			camera.position.copyFrom(camera.matrix.transformVector(p));
 			camera.recompose();
-			
+			// TODO: 为ignoreRotation修改这里
 			var pm0:Matrix3D = camera.invertMatrix.clone();
 			pm0.append(camera.pm);
 			
@@ -70,23 +70,15 @@ package effect
 			pm1.recompose(components);
 			pm1.append(camera.pm);
 			
-			var pm2:Matrix3D = camera.invertMatrix.clone();
-			components = pm2.decompose();
-			components[1].setTo(0, 0, 0);
-			pm2.recompose(components);
-			pm2.append(camera.pm);
-			
-			var pm3:Matrix3D = camera.pm;
-			
 			var mesh:IMesh;
 			for each(mesh in containerProcess.objects) {
-				containerProcess.drawMesh(mesh, mesh.ignorePosition ? (mesh.ignoreRotation ? pm3 : pm1) : (mesh.ignoreRotation ? pm2 : pm0));
+				containerProcess.drawMesh(mesh, mesh.ignorePosition ? pm1 : pm0);
 			}
 			
 			context3d.setBlendFactors(Context3DBlendFactor.SOURCE_ALPHA, Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA);
 			
 			for each(mesh in containerProcess.alphaObjects) {
-				containerProcess.drawMesh(mesh, mesh.ignorePosition ? (mesh.ignoreRotation ? pm3 : pm1) : (mesh.ignoreRotation ? pm2 : pm0));
+				containerProcess.drawMesh(mesh, mesh.ignorePosition ? pm1 : pm0);
 			}
 			
 			context3d.setBlendFactors(Context3DBlendFactor.ONE, Context3DBlendFactor.ZERO);

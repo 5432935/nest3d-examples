@@ -4,6 +4,7 @@ package
 	import flash.geom.Matrix3D;
 	import flash.geom.Vector3D;
 	
+	import nest.control.animation.TextureKeyFrame;
 	import nest.control.util.Primitives;
 	import nest.control.partition.OcNode;
 	import nest.control.partition.OcTree;

@@ -39,7 +39,8 @@ package
 		protected function onContext3DCreated(e:Event):void {
 			stage3d.removeEventListener(Event.CONTEXT3D_CREATE, onContext3DCreated);
 			
-			view = new ViewPort(stage3d.context3D, new Vector.<IRenderProcess>());
+			ViewPort.context3d = stage3d.context3D;
+			view = new ViewPort(new Vector.<IRenderProcess>());
 			view.configure(stage.stageWidth, stage.stageHeight);
 			view.diagram.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
 			view.diagram.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
@@ -59,6 +60,16 @@ package
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			onResize(null);
 			onEnterFrame(null);
+		}
+		
+		private function onContext3DFound(e:Event):void {
+			stage3d.removeEventListener(Event.CONTEXT3D_CREATE, onContext3DFound);
+			ViewPort.context3d = stage3d.context3D;
+			stage.addEventListener(Event.RESIZE, onResize);
+			stage.addEventListener(Event.ACTIVATE, onStageActived);
+			stage.addEventListener(Event.DEACTIVATE, onStageDeactived);
+			stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			onResize(null);
 		}
 		
 		private function onMouseDown(e:MouseEvent):void {
@@ -109,6 +120,16 @@ package
 		}
 		
 		protected function onEnterFrame(e:Event):void {
+			// check if the context3d device is avaliable, if not, stop rendering loop and request another one.
+			if (!stage3d.context3D) {
+				if (actived) removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+				ViewPort.context3d = stage3d.context3D;
+				stage.removeEventListener(Event.RESIZE, onResize);
+				stage.removeEventListener(Event.ACTIVATE, onStageActived);
+				stage.removeEventListener(Event.DEACTIVATE, onStageDeactived);
+				stage3d.addEventListener(Event.CONTEXT3D_CREATE, onContext3DFound);
+				stage3d.requestContext3D();
+			}
 			controller.calculate();
 			loop();
 			view.calculate();
