@@ -63,7 +63,7 @@ package
 			
 			var mesh:Mesh;
 			
-			var i:int, j:int, k:int, l:int = 15, m:int = l * 25;
+			var i:int, j:int, k:int, l:int = 10, m:int = l * 25;
 			for (i = 0; i < l; i++) {
 				for (j = 0; j < l; j++) {
 					for (k = 0; k < l; k++) {
@@ -82,7 +82,7 @@ package
 			}
 			
 			container.partition = new OcTree();
-			(container.partition as OcTree).create(container, 4, l * 50);
+			(container.partition as OcTree).create(container, 3, l * 50);
 			
 			camera.recompose();
 		}

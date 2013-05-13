@@ -6,8 +6,8 @@ package
 	
 	import nest.control.animation.TextureKeyFrame;
 	import nest.control.util.Primitives;
-	import nest.control.partition.OcNode;
 	import nest.control.partition.OcTree;
+	import nest.control.partition.OcNode;
 	import nest.object.geom.Bound;
 	import nest.object.geom.Geometry;
 	import nest.object.Mesh;
@@ -56,7 +56,7 @@ package
 			}
 			
 			container.partition = new OcTree();
-			(container.partition as OcTree).create(container, 4, l * 50);
+			container.partition.create(container, 3, l * 50);
 			
 			camera.recompose();
 		}
