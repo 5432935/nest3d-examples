@@ -27,5 +27,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ----------------------------------------------------------------
-Examples for version: 1.4.3 beta
+Examples for version: 1.4.3
 ----------------------------------------------------------------

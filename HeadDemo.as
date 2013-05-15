@@ -60,8 +60,8 @@ package
 		private var box:Mesh;
 		private var skybox:Mesh;
 		
-		private var cameraPos:VectorShaderPart;
-		private var lights:VectorShaderPart;
+		private var cameraDir:VectorShaderPart;
+		private var lightsInfo:VectorShaderPart;
 		
 		override public function init():void {
 			container = new Container3D();
@@ -100,12 +100,11 @@ package
 			TextureResource.uploadToTexture(normalmap, new bitmap_normalmap().bitmapData, false);
 			
 			var shader:Shader3D = new Shader3D();
-			shader.constantsPart.push(new MatrixShaderPart(Context3DProgramType.VERTEX, 8, mesh.invertWorldMatrix, true));
-			cameraPos = new VectorShaderPart(Context3DProgramType.VERTEX, 12, Vector.<Number>([0, 0, -400, 1]));
-			shader.constantsPart.push(cameraPos);
+			cameraDir = new VectorShaderPart(Context3DProgramType.VERTEX, 8, Vector.<Number>([0, 0, -400, 1]));
+			shader.constantsPart.push(cameraDir);
 			// ambient light color, directional light color, directional light direction
-			lights = new VectorShaderPart(Context3DProgramType.FRAGMENT, 0, Vector.<Number>([0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1]), 3);
-			shader.constantsPart.push(lights);
+			lightsInfo = new VectorShaderPart(Context3DProgramType.FRAGMENT, 0, Vector.<Number>([0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1]), 3);
+			shader.constantsPart.push(lightsInfo);
 			// glossiness
 			shader.constantsPart.push(new VectorShaderPart(Context3DProgramType.FRAGMENT, 3, Vector.<Number>([20, 1, 1, 1])));
 			shader.texturesPart.push(diffuse, specular, normalmap);
@@ -178,13 +177,8 @@ package
 			"mov v2, va1\n" + 
 			// project vertex
 			"m44 op, vt0, vc4\n" + 
-			// cameraPos
-			"mov vt0, vc12.xyz\n" + 
-			// cameraPos to object space
-			"m44 vt0, vt0, vc8\n" + 
-			// v5 = cameraDir in object space
-			"nrm vt0.xyz, vt0\n" + 
-			"mov v5, vt0.xyz\n" + 
+			// v5 = camera.direction in object space
+			"mov v5, vc8.xyz\n" + 
 			// v4 = tangent
 			"mov v4, va2\n" + 
 			// v3 = binormal
@@ -234,7 +228,7 @@ package
 		}
 		
 		override public function loop():void {
-			var camPos:Vector3D = camera.worldMatrix.transformVector(new Vector3D());
+			var camPos:Vector3D = camera.worldMatrix.position;
 			var orgion:Vector3D = mesh.invertWorldMatrix.transformVector(camPos);
 			var delta:Vector3D = mesh.invertWorldMatrix.transformVector(camera.worldMatrix.transformVector(new Vector3D(0, 0, 1000)));
 			var results:Vector.<RayIntersectionResult> = new Vector.<RayIntersectionResult>();
@@ -260,12 +254,14 @@ package
 			}
 			orgion.normalize();
 			orgion.negate();
-			lights.data[8] = orgion.x;
-			lights.data[9] = orgion.y;
-			lights.data[10] = orgion.z;
-			cameraPos.data[0] = camPos.x;
-			cameraPos.data[1] = camPos.y;
-			cameraPos.data[2] = camPos.z;
+			lightsInfo.data[8] = orgion.x;
+			lightsInfo.data[9] = orgion.y;
+			lightsInfo.data[10] = orgion.z;
+			delta.normalize();
+			delta.negate();
+			cameraDir.data[0] = delta.x;
+			cameraDir.data[1] = delta.y;
+			cameraDir.data[2] = delta.z;
 		}
 	}
 

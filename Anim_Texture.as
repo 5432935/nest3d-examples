@@ -62,7 +62,7 @@ package
 						mesh.shaders.push(shader);
 						mesh.position.setTo(i * 50 - m, j * 50 - m, k * 50 - m);
 						mesh.scale.setTo(10, 10, 10);
-						mesh.triangleCulling = Context3DTriangleFace.NONE;
+						mesh.ignoreRotation = true;
 						container.addChild(mesh);
 					}
 				}

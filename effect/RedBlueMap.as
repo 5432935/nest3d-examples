@@ -60,7 +60,7 @@ package effect
 			p.scaleBy(eyePadding);
 			camera.position.copyFrom(camera.matrix.transformVector(p));
 			camera.recompose();
-			// TODO: 为ignoreRotation修改这里
+			
 			var pm0:Matrix3D = camera.invertMatrix.clone();
 			pm0.append(camera.pm);
 			
