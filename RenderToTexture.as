@@ -48,8 +48,7 @@ package
 			shader0.comply("m44 vt0, va0, vc0\nm44 op, vt0, vc4\n",
 							"mov oc, fc0\n");
 			
-			mesh = new Mesh(Primitives.createBox());
-			mesh.shaders.push(shader0);
+			mesh = new Mesh(Primitives.createBox(), shader0);
 			Geometry.setupGeometry(mesh.geometry, true, false, false, false);
 			Geometry.uploadGeometry(mesh.geometry, true, false, false, false, true);
 			Geometry.calculateBound(mesh.geometry);
@@ -63,8 +62,7 @@ package
 							"tex oc, v0, fs0 <2d,linear,mipnone>\n");
 			shader1.texturesPart[0].texture = ViewPort.context3d.createTexture(512, 512, Context3DTextureFormat.BGRA, true);
 			
-			mesh1 = new Mesh(Primitives.createPlane());
-			mesh1.shaders.push(shader1);
+			mesh1 = new Mesh(Primitives.createPlane(), shader1);
 			Geometry.setupGeometry(mesh1.geometry, true, false, false, true);
 			Geometry.uploadGeometry(mesh1.geometry, true, false, false, true, true);
 			Geometry.calculateBound(mesh1.geometry);

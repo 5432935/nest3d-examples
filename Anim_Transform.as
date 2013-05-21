@@ -50,8 +50,7 @@ package
 			shader.comply("m44 vt0, va0, vc0\nm44 op, vt0, vc4\n",
 							"mov oc, fc0\n");
 			
-			var mesh:Mesh = new Mesh(geom);
-			mesh.shaders.push(shader);
+			var mesh:Mesh = new Mesh(geom, shader);
 			mesh.orientation = Orientation3D.QUATERNION;
 			mesh.rotation.w = 1;
 			mesh.scale.setTo(10, 10, 10);

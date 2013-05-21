@@ -110,7 +110,7 @@ package
 			shader.texturesPart.push(diffuse, specular, normalmap);
 			shader.comply(vertexShader(), fragmentShader());
 			
-			mesh.shaders.push(shader);
+			mesh.shader = shader;
 			container.addChild(mesh);
 			
 			///////////////////////////////////
@@ -121,11 +121,10 @@ package
 			box_shader.constantsPart.push(new VectorShaderPart(Context3DProgramType.FRAGMENT, 0, Vector.<Number>([1, 0, 0, 1])));
 			box_shader.comply("m44 vt0, va0, vc0\nm44 op, vt0, vc4\n", "mov oc, fc0\n");
 			
-			box = new Mesh(Primitives.createBox());
+			box = new Mesh(Primitives.createBox(), box_shader);
 			Geometry.setupGeometry(box.geometry, true, false, false, false);
 			Geometry.uploadGeometry(box.geometry, true, false, false, false, true);
 			Geometry.calculateBound(box.geometry);
-			box.shaders.push(box_shader);
 			box.position.x = 500;
 			box.scale.setTo(10, 10, 10);
 			container.addChild(box);
@@ -150,11 +149,10 @@ package
 			skybox_shader.comply("m44 vt0, va0, vc0\nm44 op, vt0, vc4\nmov v0, va0\n", 
 								"tex oc, v0, fs0 <cube,linear,miplinear>\n");
 			
-			skybox = new Mesh(Primitives.createSkybox());
+			skybox = new Mesh(Primitives.createSkybox(), skybox_shader);
 			Geometry.setupGeometry(skybox.geometry, true, false, false, false);
 			Geometry.uploadGeometry(skybox.geometry, true, false, false, false, true);
 			Geometry.calculateBound(skybox.geometry);
-			skybox.shaders.push(skybox_shader);
 			skybox.cliping = false;
 			skybox.scale.setTo(10000, 10000, 10000);
 			skybox.ignorePosition = true;

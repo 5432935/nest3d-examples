@@ -63,7 +63,7 @@ package
 			shader.texturesPart.push(diffuse);
 			shader.comply("m44 vt0, va0, vc0\nm44 op, vt0, vc4\nmov v0, va3\n", 
 								"tex oc, v0, fs0 <2d,linear,mipnone>\n");
-			mesh.shaders.push(shader);
+			mesh.shader = shader;
 			
 			camera.position.z = -400;
 			camera.recompose();

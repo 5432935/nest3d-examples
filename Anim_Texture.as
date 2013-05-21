@@ -38,7 +38,6 @@ package
 			
 			var track:AnimationTrack = TextureResource.getTrackFromSpriteSheet(new data().bitmapData, false, 96, 128, 0, 10);
 			track.modifier = new TextureModifier();
-			track.parameters[TextureModifier.SHADER_INDEX] = 0;
 			track.parameters[TextureModifier.TEXTURE_INDEX] = 0;
 			track.enabled = true;
 			
@@ -58,8 +57,7 @@ package
 			for (i = 0; i < l; i++) {
 				for (j = 0; j < l; j++) {
 					for (k = 0; k < l; k++) {
-						mesh = new Mesh(geom);
-						mesh.shaders.push(shader);
+						mesh = new Mesh(geom, shader);
 						mesh.position.setTo(i * 50 - m, j * 50 - m, k * 50 - m);
 						mesh.scale.setTo(10, 10, 10);
 						mesh.ignoreRotation = true;

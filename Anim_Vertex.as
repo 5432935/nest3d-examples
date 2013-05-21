@@ -51,8 +51,7 @@ package
 							"tex oc, v0, fs0 <2d,linear,mipnone>\n");
 			TextureResource.uploadToTexture(shader.texturesPart[0], new diffuse().bitmapData, false);
 			
-			var mesh:Mesh = new Mesh(parser.geom);
-			mesh.shaders.push(shader);
+			var mesh:Mesh = new Mesh(parser.geom, shader);
 			mesh.rotation.y = Math.PI / 2;
 			container.addChild(mesh);
 			

@@ -40,14 +40,13 @@ package
 			shader.constantsPart.push(new VectorShaderPart(Context3DProgramType.FRAGMENT, 0, Vector.<Number>([1, 1, 1, 1])));
 			shader.comply("m44 vt0, va0, vc0\nm44 op, vt0, vc4\n", "mov oc, fc0\n");
 			
-			var shaders:Vector.<Shader3D> = Vector.<Shader3D>([shader]);
 			var mesh:Mesh;
 			
 			var i:int, j:int, k:int, l:int = 15, m:int = l * 25;
 			for (i = 0; i < l; i++) {
 				for (j = 0; j < l; j++) {
 					for (k = 0; k < l; k++) {
-						mesh = new Mesh(geom, shaders);
+						mesh = new Mesh(geom, shader);
 						mesh.position.setTo(i * 50 - m, j * 50 - m, k * 50 - m);
 						mesh.scale.setTo(10, 10, 10);
 						container.addChild(mesh);

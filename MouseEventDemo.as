@@ -67,8 +67,7 @@ package
 			for (i = 0; i < l; i++) {
 				for (j = 0; j < l; j++) {
 					for (k = 0; k < l; k++) {
-						mesh = new Mesh(geom, null);
-						mesh.shaders.push(shader0);
+						mesh = new Mesh(geom, shader0);
 						mesh.position.setTo(i * 50 - m, j * 50 - m, k * 50 - m);
 						mesh.scale.setTo(10, 10, 10);
 						mesh.mouseEnabled = true;
@@ -88,15 +87,15 @@ package
 		}
 		
 		private function onMouseOut(e:MouseEvent3D):void {
-			(e.target as Mesh).shaders[0] = shader0;
+			(e.target as Mesh).shader = shader0;
 		}
 		
 		private function onMouseDown(e:MouseEvent3D):void {
-			(e.target as Mesh).shaders[0] = shader1;
+			(e.target as Mesh).shader = shader1;
 		}
 		
 		private function onMouseOver(e:MouseEvent3D):void {
-			(e.target as Mesh).shaders[0] = shader2;
+			(e.target as Mesh).shader = shader2;
 		}
 		
 		override public function loop():void {
