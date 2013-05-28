@@ -37,7 +37,10 @@ package
 			container.castShadows = true;
 			
 			process0 = new DepthMapProcess(container);
-			perspectiveProjection(process0.pm);
+			orthographicProjection(process0.pm, 512, 512);
+			process0.vm.appendRotation(-20, Vector3D.X_AXIS);
+			process0.ivm.copyFrom(process0.vm);
+			process0.ivm.invert();
 			
 			process1 = new ContainerProcess(camera, container);
 			process1.color = 0xff000000;
@@ -95,14 +98,23 @@ package
 					"sge oc, ft1, v0.b\n";
 		}
 		
-		private function perspectiveProjection(pm:Matrix3D = null, fov:Number = 45 * Math.PI / 180, aspect:Number = 1, far:Number = 1000, near:Number = 1):void {
+		private function perspectiveProjection(pm:Matrix3D, fov:Number = 45 * Math.PI / 180, aspect:Number = 1, far:Number = 1000, near:Number = 1):void {
 			var ys:Number = 1 / Math.tan(fov / 2);
 			var xs:Number = ys / aspect;
 			pm.copyRawDataFrom(Vector.<Number>([
-				xs, 0, 0, 0,
-				0, ys, 0, 0,
-				0, 0, far / (far - near), 1,
-				0, 0, (near * far) / (near - far), 0
+				xs, 0,  0,                           0,
+				0,  ys, 0,                           0,
+				0,  0,  far / (far - near),          1,
+				0,  0,  (near * far) / (near - far), 0
+			]));
+		}
+		
+		private function orthographicProjection(pm:Matrix3D, width:Number, weight:Number, far:Number = 1000, near:Number = 1):void {
+			pm.copyRawDataFrom(Vector.<Number>([
+				2 / width,  0,			 0,					0,
+				0,			2 / height,  0,					0,
+				0,			0,			 1 / (far - near),	0,
+				0,			0,			 near / (near-far), 1
 			]));
 		}
 		
