@@ -8,8 +8,7 @@ package
 	import nest.control.util.Primitives;
 	import nest.control.partition.OcTree;
 	import nest.control.partition.OcNode;
-	import nest.object.geom.Bound;
-	import nest.object.geom.Geometry;
+	import nest.object.Geometry;
 	import nest.object.Mesh;
 	import nest.object.Container3D;
 	import nest.view.shader.*;

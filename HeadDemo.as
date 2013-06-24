@@ -9,8 +9,7 @@ package
 	import nest.control.util.Primitives;
 	import nest.control.util.RayIntersection;
 	import nest.control.util.RayIntersectionResult;
-	import nest.object.geom.Bound;
-	import nest.object.geom.Geometry;
+	import nest.object.Geometry;
 	import nest.object.Mesh;
 	import nest.object.Container3D;
 	import nest.view.process.*;
