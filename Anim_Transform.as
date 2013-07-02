@@ -56,7 +56,7 @@ package
 			container.addChild(mesh);
 			
 			var track:AnimationTrack = new AnimationTrack(new Vector.<IKeyFrame>());
-			track.modifier = new TransformModifier();
+			track.modifier = TransformModifier.instance;
 			track.target = mesh;
 			track.position = 1;
 			track.enabled = true;

@@ -37,7 +37,7 @@ package
 			view.processes.push(process0);
 			
 			var track:AnimationTrack = TextureResource.getTrackFromSpriteSheet(new data().bitmapData, false, 96, 128, 0, 10);
-			track.modifier = new TextureModifier();
+			track.modifier = TextureModifier.instance;
 			track.parameters[TextureModifier.TEXTURE_INDEX] = 0;
 			track.enabled = true;
 			

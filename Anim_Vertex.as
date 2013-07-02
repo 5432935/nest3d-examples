@@ -55,7 +55,7 @@ package
 			container.addChild(mesh);
 			
 			var track:AnimationTrack = parser.track;
-			track.modifier = new VertexModifier();
+			track.modifier = VertexModifier.instance;
 			track.parameters[VertexModifier.VERTEX_NORMAL] = false;
 			track.parameters[VertexModifier.VERTEX_TANGENT] = false;
 			track.target = mesh;
