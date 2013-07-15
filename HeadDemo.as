@@ -154,7 +154,6 @@ package
 			Geometry.calculateBound(skybox.geometry);
 			skybox.cliping = false;
 			skybox.scale.setTo(10000, 10000, 10000);
-			skybox.ignorePosition = true;
 			container.addChild(skybox);
 			
 			camera.position.z = -400;
@@ -259,6 +258,8 @@ package
 			cameraDir.data[0] = delta.x;
 			cameraDir.data[1] = delta.y;
 			cameraDir.data[2] = delta.z;
+			skybox.position.copyFrom(camera.position);
+			skybox.recompose();
 		}
 	}
 

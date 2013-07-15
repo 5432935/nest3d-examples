@@ -80,7 +80,8 @@ package
 			}
 			
 			container.partition = new OcTree();
-			(container.partition as OcTree).create(container, 3, l * 50);
+			container.partition.frustum = true;
+			container.partition.create(container, 3, l * 50);
 			
 			camera.recompose();
 		}
